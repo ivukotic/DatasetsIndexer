@@ -2,27 +2,65 @@ from elasticsearch import Elasticsearch
 from elasticsearch import helpers
 from datetime import datetime
 
+print "reading the data"
+with open('dsnames.txt', 'r') as f:
+    read_data = f.readlines()
+
+dss=read_data[2:]
+
 es = Elasticsearch("uct2-es-head:9200")
 
-es.indices.delete(index='local_group_disk_datasets', ignore=[400, 404])
+#es.indices.delete(index='local_group_disk_datasets', ignore=[400, 404])
 
 # ignore 400 cause by IndexAlreadyExistsException when creating an index
-es.indices.create(index='local_group_disk_datasets', ignore=400)
+es.indices.create(index='local_group_disk_datasets_'+str(datetime.now().date()), ignore=400)
+
+def decodeDT(ds):
+    wo=ds.split(".")
+    for w in wo:
+        if w.startswith("DESD_") or w.startswith("DAOD_") return w; 
 
 actions = []
-j=0
-while (j <= 10):
+
+for DS in dss:
+    scope=""
+    user="unknown"
+    group="unknown"
+    datatype="unknown"
+    
+    if DS.count(':')>0:
+        spl=DS.split(':')
+        scope=spl[0]
+        DS=spl[1]
+    else:
+        w=DS.split('.')
+        if w[0].startswith('user'):
+            user=w[1]
+            scope=w[0]+'.'+w[1]
+        else if w[0].startswith('group'):
+            group=w[1]
+            scope=w[0]+'.'+w[1]
+        else:
+            scope=w[0]
+    
+    if DS.count(".AOD.")>0: datatype="AOD"
+    else if DS.count(".ESD.")>0: datatype="ESD"
+    else if DS.count(".RAW")>0: datatype="RAW"
+    else datatype=decodeDT(DS)
+    
     action = {
         "_index": "local_group_disk_datasets",
         "_type": "DS",
         "_id": j,
         "_source": {
-            "scope":"user.yang43",
-            "fn":"user.yang43.data11_7TeV.DAOD_ONIAMUMU.Period_M2M4M5M6M8M10.pro10_v01.Onia.17.0.4.1.v1.4.131226095813" + str(j),
+            "scope":scope,
+            "fn":DS,
+            "user":user,
+            "group":group,
+            "type":datatype,
             "timestamp": datetime.now()
             }
         }
     actions.append(action)
-    j += 1
 
 helpers.bulk(es, actions)
