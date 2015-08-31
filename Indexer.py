@@ -43,7 +43,7 @@ for DS in dss:
     elif DS.count(".RAW")>0: datatype="RAW"
     elif DS.count(".RDO")>0: datatype="RDO"
     else: datatype=decodeDT(DS)
-    print scope, user, group, datatype, DS
+    print scope, creator, datatype, DS
     action = {
         "_index": IndName,
         "_type": "DS",
