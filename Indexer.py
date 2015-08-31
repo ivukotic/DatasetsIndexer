@@ -93,17 +93,17 @@ q.join()
 
 print "indexing ..."
 actions = []
-for DS in dss:
+for ds in DataSets:
     action = {
         "_index": IndName,
         "_type": "DS",
         "_source": {
-            "scope":DS.scope,
-            "fn":DS.name,
-            "creator":DS.creator,
-            "type":DS.datatype,
-            "files":DS.files,
-            "size":DS.size,
+            "scope":ds.scope,
+            "fn":ds.name,
+            "creator":ds.creator,
+            "type":ds.datatype,
+            "files":ds.files,
+            "size":ds.size,
             "timestamp": datetime.now()
             }
         }
