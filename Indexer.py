@@ -86,7 +86,7 @@ DataSets=[]
 for DS in dss:
     DS=DS.strip()
     nds=DataSet(DS)
-    DataSets.append(DataSet(DS))
+    DataSets.append(nds)
     q.put(nds)
 
 q.join()     
