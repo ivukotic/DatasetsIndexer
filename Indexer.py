@@ -27,8 +27,7 @@ actions = []
 for DS in dss:
     DS=DS.strip()
     scope=""
-    user="unknown"
-    group="unknown"
+    creator="unknown"
     datatype="unknown"
     
     spl=DS.split(':')
@@ -36,10 +35,8 @@ for DS in dss:
     DS=spl[1]
     
     w=scope.split('.')
-    if w[0].startswith('user'):
-        user=w[1]
-    elif w[0].startswith('group'):
-            group=w[1]
+    if w[0].startswith('user') or w[0].startswith('group'):
+        creator=w[1]
     
     if DS.count(".AOD.")>0: datatype="AOD"
     elif DS.count(".ESD.")>0: datatype="ESD"
@@ -54,8 +51,7 @@ for DS in dss:
         "_source": {
             "scope":scope,
             "fn":DS,
-            "user":user,
-            "group":group,
+            "creator":creator,
             "type":datatype,
             "timestamp": datetime.now()
             }
