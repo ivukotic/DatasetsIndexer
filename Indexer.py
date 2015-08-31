@@ -109,5 +109,5 @@ for ds in DataSets:
         }
     actions.append(action)
 
-
+print actions
 helpers.bulk(es, actions)
