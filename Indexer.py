@@ -68,7 +68,7 @@ def worker():
 
 es = Elasticsearch("uct2-es-head:9200")
 
-IndName='temp_local_group_disk_datasets_'+str(datetime.now().date())
+IndName='local_group_disk_datasets_'+str(datetime.now().date())
 es.indices.delete(index=IndName, ignore=[400, 404])
 
 # ignore 400 cause by IndexAlreadyExistsException when creating an index
