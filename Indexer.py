@@ -30,22 +30,13 @@ def decodeDT(ds):
     return "unknown"
 
 def getFilesSize(scope, DS):
-    coll=[0,0]
-    cont=rucio.client.didclient.DIDClient().list_content(scope,DS)
-    for f in cont:
-        if f['type']=='DATASET':
-            collected=getFiles(f['scope'],f['name']) 
-            coll[0]+=collected[0]
-            coll[1]+=collected[1]
-        else:
-            coll[0]+=1
-            coll[1]+=f['bytes']
-    return coll
+    cont=rucio.client.didclient.DIDClient().get_did(scope,DS)
+    return coll['length'],coll['bytes']
     
 
 es = Elasticsearch("uct2-es-head:9200")
 
-IndName='Tlocal_group_disk_datasets_'+str(datetime.now().date())
+IndName='temp_local_group_disk_datasets_'+str(datetime.now().date())
 es.indices.delete(index=IndName, ignore=[400, 404])
 
 # ignore 400 cause by IndexAlreadyExistsException when creating an index
