@@ -6,9 +6,6 @@ es.indices.delete(index='LocalGroupDiskDatasets', ignore=[400, 404])
 # ignore 400 cause by IndexAlreadyExistsException when creating an index
 es.indices.create(index='LocalGroupDiskDatasets', ignore=400)
 
-# add a doc
-es.indices.index(index='LocalGroupDiskDatasets',doc_type="ds",body="")
-
 actions = []
 while (j <= 10):
     action = {
