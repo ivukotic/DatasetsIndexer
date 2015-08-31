@@ -31,7 +31,7 @@ def decodeDT(ds):
 
 def getFilesSize(scope, DS):
     cont=rucio.client.didclient.DIDClient().get_did(scope,DS)
-    return coll['length'],coll['bytes']
+    return cont['length'],cont['bytes']
     
 
 es = Elasticsearch("uct2-es-head:9200")
