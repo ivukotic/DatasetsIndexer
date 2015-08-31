@@ -1,4 +1,7 @@
 from elasticsearch import Elasticsearch
+from elasticsearch import helpers
+from datetime import datetime
+
 es = Elasticsearch("uct2-es-head:9200")
 
 es.indices.delete(index='LocalGroupDiskDatasets', ignore=[400, 404])
@@ -7,6 +10,7 @@ es.indices.delete(index='LocalGroupDiskDatasets', ignore=[400, 404])
 es.indices.create(index='LocalGroupDiskDatasets', ignore=400)
 
 actions = []
+j=0
 while (j <= 10):
     action = {
         "_index": "LocalGroupDiskDatasets",
