@@ -25,29 +25,26 @@ def decodeDT(ds):
 actions = []
 
 for DS in dss:
+    DS=DS.strip()
     scope=""
     user="unknown"
     group="unknown"
     datatype="unknown"
     
-    if DS.count(':')>0:
-        spl=DS.split(':')
-        scope=spl[0]
-        DS=spl[1]
-    else:
-        w=DS.split('.')
-        if w[0].startswith('user'):
-            user=w[1]
-            scope=w[0]+'.'+w[1]
-        elif w[0].startswith('group'):
+    spl=DS.split(':')
+    scope=spl[0]
+    DS=spl[1]
+    
+    w=scope.split('.')
+    if w[0].startswith('user'):
+        user=w[1]
+    elif w[0].startswith('group'):
             group=w[1]
-            scope=w[0]+'.'+w[1]
-        else:
-            scope=w[0]
     
     if DS.count(".AOD.")>0: datatype="AOD"
     elif DS.count(".ESD.")>0: datatype="ESD"
     elif DS.count(".RAW")>0: datatype="RAW"
+    elif DS.count(".RDO")>0: datatype="RDO"
     else: datatype=decodeDT(DS)
     print scope, user, group, datatype, DS
     action = {
