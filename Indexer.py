@@ -38,15 +38,15 @@ for DS in dss:
         if w[0].startswith('user'):
             user=w[1]
             scope=w[0]+'.'+w[1]
-        else if w[0].startswith('group'):
+        elif w[0].startswith('group'):
             group=w[1]
             scope=w[0]+'.'+w[1]
         else:
             scope=w[0]
     
     if DS.count(".AOD.")>0: datatype="AOD"
-    else if DS.count(".ESD.")>0: datatype="ESD"
-    else if DS.count(".RAW")>0: datatype="RAW"
+    elif DS.count(".ESD.")>0: datatype="ESD"
+    elif DS.count(".RAW")>0: datatype="RAW"
     else datatype=decodeDT(DS)
     
     action = {
