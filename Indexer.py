@@ -46,7 +46,7 @@ class DataSet:
                 break 
                 
     def getFilesSize(self):
-        cont=rucio.client.didclient.DIDClient().get_did(scope,DS)
+        cont=rucio.client.didclient.DIDClient().get_did(self.scope,self.name)
         self.files = cont['length']
         self.size  = cont['bytes']      
         
