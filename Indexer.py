@@ -8,7 +8,7 @@ with open('dsnames.txt', 'r') as f:
 
 dss=read_data[2:]
 
-
+import os
 import rucio
 import rucio.client
 import rucio.common.config as conf
