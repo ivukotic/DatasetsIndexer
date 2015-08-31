@@ -62,7 +62,7 @@ def worker():
         f=q.get()
         f.getFilesSize()
         f.prnt()
-        print "still in queue: ", q.qsize()
+        #print "still in queue: ", q.qsize()
         q.task_done()
 
 
@@ -109,5 +109,4 @@ for ds in DataSets:
         }
     actions.append(action)
 
-print actions
 helpers.bulk(es, actions)
