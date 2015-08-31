@@ -18,7 +18,8 @@ es.indices.create(index='local_group_disk_datasets_'+str(datetime.now().date()),
 def decodeDT(ds):
     wo=ds.split(".")
     for w in wo:
-        if w.startswith("DESD_") or w.startswith("DAOD_") return w; 
+        if w.startswith("DESD_") or w.startswith("DAOD_"): return w; 
+    return "unknown"
 
 actions = []
 
