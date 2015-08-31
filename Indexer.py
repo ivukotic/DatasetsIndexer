@@ -77,7 +77,7 @@ es.indices.create(index=IndName, ignore=400)
 
 # created threads
 q=Queue.Queue()
-for i in range(int(opts.Streams)):
+for i in range(10):
      t = Thread(target=worker)
      t.daemon = True
      t.start()
