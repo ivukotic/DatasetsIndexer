@@ -10,10 +10,11 @@ dss=read_data[2:]
 
 es = Elasticsearch("uct2-es-head:9200")
 
-#es.indices.delete(index='local_group_disk_datasets', ignore=[400, 404])
+IndName='local_group_disk_datasets_'+str(datetime.now().date())
+es.indices.delete(index=IndName, ignore=[400, 404])
 
 # ignore 400 cause by IndexAlreadyExistsException when creating an index
-es.indices.create(index='local_group_disk_datasets_'+str(datetime.now().date()), ignore=400)
+es.indices.create(index=IndName, ignore=400)
 
 def decodeDT(ds):
     wo=ds.split(".")
@@ -50,7 +51,7 @@ for DS in dss:
     else: datatype=decodeDT(DS)
     print scope, user, group, datatype, DS
     action = {
-        "_index": "local_group_disk_datasets",
+        "_index": IndName,
         "_type": "DS",
         # "_id": j,
         "_source": {
