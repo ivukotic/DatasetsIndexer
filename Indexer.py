@@ -52,7 +52,7 @@ for DS in dss:
     action = {
         "_index": "local_group_disk_datasets",
         "_type": "DS",
-        "_id": j,
+        # "_id": j,
         "_source": {
             "scope":scope,
             "fn":DS,
