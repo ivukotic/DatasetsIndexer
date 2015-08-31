@@ -47,7 +47,7 @@ for DS in dss:
     if DS.count(".AOD.")>0: datatype="AOD"
     elif DS.count(".ESD.")>0: datatype="ESD"
     elif DS.count(".RAW")>0: datatype="RAW"
-    else datatype=decodeDT(DS)
+    else: datatype=decodeDT(DS)
     
     action = {
         "_index": "local_group_disk_datasets",
