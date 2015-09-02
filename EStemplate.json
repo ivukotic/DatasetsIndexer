@@ -1,0 +1,20 @@
+curl -XPOST 'http://uct2-es-head.mwt2.org:9200/_template/local_group_disk' -d '{
+    "template" : "local_group_disk_datasets_*",
+    "settings" : {
+        "number_of_shards" : 4,
+        "number_of_replicas" : 1
+    },
+    "mappings" : {
+        "DS" : {
+            "_source" : { "enabled" : true },
+            "properties" : {
+                "scope" : { "type" : "string", "index" : "not_analyzed" },
+                "fn" : { "type" : "string", "index" : "not_analyzed" },
+                "type" : { "type" : "string", "index" : "not_analyzed" },
+                "files" : { "type" : "integer", "index" : "not_analyzed" },
+                "size" : { "type" : "long", "index" : "not_analyzed" }
+            }
+        }
+    }
+}
+'
